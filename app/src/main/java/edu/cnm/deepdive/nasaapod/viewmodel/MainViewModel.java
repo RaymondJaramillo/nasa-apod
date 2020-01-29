@@ -61,7 +61,7 @@ public class MainViewModel extends AndroidViewModel {
           .build();
       ApodService service = retrofit.create(ApodService.class);
       try {
-        Response<Apod> response = service.get(BuildConfig.API_KEY, "formatteDate").execute();
+        Response<Apod> response = service.get(BuildConfig.API_KEY, formattedDate).execute();
         if (response.isSuccessful()) {
           Apod apod = response.body();
           MainViewModel.this.apod.postValue(apod);
