@@ -1,8 +1,12 @@
 package edu.cnm.deepdive.nasaapod.controller;
 
+import android.icu.text.IDNA.Info;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebResourceRequest;
@@ -13,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,6 +41,13 @@ public class ImageFragment extends Fragment {
   private Apod apod;
 
   @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setHasOptionsMenu(true);
+    setRetainInstance(true);
+  }
+
+  @Override
   public View onCreateView(@NonNull LayoutInflater inflater,
       ViewGroup container, Bundle savedInstanceState) {
     View root = inflater.inflate(R.layout.fragment_image, container, false);
@@ -45,6 +57,7 @@ public class ImageFragment extends Fragment {
     setupCalenderPicker(Calendar.getInstance());
     return root;
   }
+
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -67,6 +80,36 @@ public class ImageFragment extends Fragment {
     toast.show();
 
     });
+  }
+
+  @Override
+  public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+    super.onCreateOptionsMenu(menu, inflater);
+    inflater.inflate(R.menu.options, menu);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    boolean handled = true;
+    switch (item.getItemId()) {
+      case R.id.info:
+        if (apod != null) {
+          InfoFragment fragment = new InfoFragment();
+          Bundle args = new Bundle();
+          args.putString(InfoFragment.TITLE_KEY, apod.getTitle());
+          args.putString(InfoFragment.DESCRIPTION_KEY, apod.getDescription());
+          args.putString(InfoFragment.COPYRIGHT_KEY, apod.getCopyright());
+          args.putSerializable(InfoFragment.DATE_KEY, apod.getDate());
+          fragment.setArguments(args);
+          fragment.show(getChildFragmentManager(), getClass().getName());
+        }
+        break;
+      default:
+        handled = super.onOptionsItemSelected(item);
+
+    }
+    return handled;
+
   }
 
   private void setupWebView(View root) {
