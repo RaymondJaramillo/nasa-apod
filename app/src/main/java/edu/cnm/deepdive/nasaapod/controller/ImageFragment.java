@@ -1,6 +1,5 @@
 package edu.cnm.deepdive.nasaapod.controller;
 
-import android.icu.text.IDNA.Info;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,15 +16,13 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import edu.cnm.deepdive.android.DateTimePickerFragment;
 import edu.cnm.deepdive.android.DateTimePickerFragment.Mode;
-import edu.cnm.deepdive.android.DateTimePickerFragment.OnChangeListener;
 import edu.cnm.deepdive.nasaapod.R;
-import edu.cnm.deepdive.nasaapod.model.Apod;
+import edu.cnm.deepdive.nasaapod.model.entity.Apod;
 import edu.cnm.deepdive.nasaapod.viewmodel.MainViewModel;
 import java.util.Calendar;
 
