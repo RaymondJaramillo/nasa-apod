@@ -20,6 +20,11 @@ android {
                 getProperty("$projectDir/../../../services/nasa.properties", "api_key")
         buildConfigField "String", "BASE_URL",
                 getProperty("$projectDir/../../../services/nasa.properties", "base_url")
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
     buildTypes {
 
